@@ -1,8 +1,9 @@
-package com.amituofo.spring.restfulwebservices.daos;
+package com.amituofo.spring.restfulwebservices.services;
 
 import com.amituofo.spring.restfulwebservices.models.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,19 @@ public class UserService {
   public User findOne(int id) {
     for(User user : users) {
       if(user.getId() == id) {
+        return user;
+      }
+    }
+
+    return null;
+  }
+
+  public User delete(int id) {
+    Iterator<User> iterator = users.iterator();
+    while(iterator.hasNext()) {
+      User user = iterator.next();
+      if(user.getId() == id) {
+        iterator.remove();
         return user;
       }
     }
