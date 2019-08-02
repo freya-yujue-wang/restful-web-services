@@ -29,7 +29,11 @@ public class UserController {
   //retrieveUser(int id)
   @GetMapping("/users/{id}")
   public User retrieveUser(@PathVariable int id) {
-    return _userService.findOne(id);
+    User user = _userService.findOne(id);
+    if (user == null) {
+      throw new UserNotFoundException("id-" + id);
+    }
+    return user;
   }
 
   //created
