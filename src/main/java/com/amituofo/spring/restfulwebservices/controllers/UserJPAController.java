@@ -63,7 +63,7 @@ public class UserJPAController {
   //output - created and return the created URI
   @PostMapping("/users")
   public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-    User savedUser = _userService.save(user);
+    User savedUser = _userRepository.save(user);
     // CREATED
     // /user/4
 
@@ -74,9 +74,6 @@ public class UserJPAController {
   //retrieveUser(int id)
   @DeleteMapping("/users/{id}")
   public void deleteUser(@PathVariable int id) {
-    User user = _userService.delete(id);
-    if (user == null) {
-      throw new UserNotFoundException("id-" + id);
-    }
+    _userRepository.deleteById(id);
   }
 }
