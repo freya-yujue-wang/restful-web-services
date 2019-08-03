@@ -1,5 +1,6 @@
 package com.amituofo.spring.restfulwebservices.controllers;
 
+import com.amituofo.spring.restfulwebservices.models.Post;
 import com.amituofo.spring.restfulwebservices.models.User;
 import com.amituofo.spring.restfulwebservices.repositories.UserRepository;
 import com.amituofo.spring.restfulwebservices.services.UserService;
@@ -75,5 +76,15 @@ public class UserJPAController {
   @DeleteMapping("/users/{id}")
   public void deleteUser(@PathVariable int id) {
     _userRepository.deleteById(id);
+  }
+
+  //retrieveALlUsers
+  @GetMapping("/users/{userId}/posts")
+  public List<Post> retrievePostsByUser(@PathVariable int userId) {
+    Optional<User> userOptional = _userRepository.findById(userId);
+    if (!userOptional.isPresent()) {
+      throw new UserNotFoundException("id-" + userId);
+    }
+    return userOptional.get().getPosts();
   }
 }
