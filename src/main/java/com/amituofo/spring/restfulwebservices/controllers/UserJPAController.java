@@ -2,6 +2,7 @@ package com.amituofo.spring.restfulwebservices.controllers;
 
 import com.amituofo.spring.restfulwebservices.models.Post;
 import com.amituofo.spring.restfulwebservices.models.User;
+import com.amituofo.spring.restfulwebservices.repositories.PostRepository;
 import com.amituofo.spring.restfulwebservices.repositories.UserRepository;
 import com.amituofo.spring.restfulwebservices.services.UserService;
 import java.net.URI;
@@ -33,6 +34,9 @@ public class UserJPAController {
 
   @Autowired
   private UserRepository _userRepository;
+
+  @Autowired
+  private PostRepository _postRepository;
 
   //retrieveALlUsers
   @GetMapping("/users")
@@ -78,7 +82,7 @@ public class UserJPAController {
     _userRepository.deleteById(id);
   }
 
-  //retrieveALlUsers
+
   @GetMapping("/users/{userId}/posts")
   public List<Post> retrievePostsByUser(@PathVariable int userId) {
     Optional<User> userOptional = _userRepository.findById(userId);
@@ -86,5 +90,19 @@ public class UserJPAController {
       throw new UserNotFoundException("id-" + userId);
     }
     return userOptional.get().getPosts();
+  }
+
+  @PostMapping("/users/{userId}/posts")
+  public ResponseEntity<Object> createPost(@PathVariable int userId, @RequestBody Post post) {
+    Optional<User> userOptional = _userRepository.findById(userId);
+    if (!userOptional.isPresent()) {
+      throw new UserNotFoundException("id-" + userId);
+    }
+    User user = userOptional.get();
+    post.setUser(user);
+    _postRepository.save(post);
+
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(post.getId()).toUri();
+    return ResponseEntity.created(uri).build();
   }
 }
