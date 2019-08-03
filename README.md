@@ -43,3 +43,13 @@ User -> Posts
   - Can we execute the request on the browser?
   - API Documentation
 - No Perfect Solution
+
+#### Spring JPA
+##### Table Structure
+
+create table user(
+id integer not null,
+birth_date timestamp,
+name varchar(255),
+primary key(id)
+)
