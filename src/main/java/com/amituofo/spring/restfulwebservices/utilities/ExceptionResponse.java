@@ -1,4 +1,4 @@
-package com.amituofo.spring.restfulwebservices.controllers;
+package com.amituofo.spring.restfulwebservices.utilities;
 
 import java.time.LocalDate;
 

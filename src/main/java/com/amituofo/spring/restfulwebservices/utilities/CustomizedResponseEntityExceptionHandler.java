@@ -1,5 +1,6 @@
-package com.amituofo.spring.restfulwebservices.controllers;
+package com.amituofo.spring.restfulwebservices.utilities;
 
+import com.amituofo.spring.restfulwebservices.controllers.UserNotFoundException;
 import java.time.LocalDate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

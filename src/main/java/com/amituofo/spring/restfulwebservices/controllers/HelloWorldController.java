@@ -1,5 +1,6 @@
 package com.amituofo.spring.restfulwebservices.controllers;
 
+import com.amituofo.spring.restfulwebservices.models.HelloWorldBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
